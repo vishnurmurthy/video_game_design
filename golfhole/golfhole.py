@@ -9,9 +9,12 @@ class Game:
         self._display_sfc = None
         self.size = self.weight, self.height = 640, 480
  
-    def init(self):
+    def init(self): 
         pygame.init()
-        self._display_sfc = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
+        if pygame.display.get_surface():
+            self._display_sfc = pygame.display.get_surface()
+        else:
+            self._display_sfc = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
         self._running = True
         
         os.chdir('..')
