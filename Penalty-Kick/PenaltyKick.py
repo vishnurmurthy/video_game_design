@@ -22,7 +22,10 @@ FPS = 15
 Shots = 5
 
 #Set Game Display and Top Bar
-gameDisplay = pygame.display.set_mode((displayWidth,displayHeight))
+if pygame.display.get_surface():
+    gameDisplay = pygame.display.get_surface()
+else:
+    gameDisplay = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
 pygame.display.set_caption('Penalty Kick')
 
 #For using the frames per second
