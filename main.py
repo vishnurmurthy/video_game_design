@@ -1,6 +1,9 @@
-import pygame, os
+import pygame, os, sys
 from random import randint
 from pygame.locals import *
+
+sys.path.insert(0, 'Penalty-Kick/')
+import PenaltyKick
 
 class RealGame:
     def __init__(self):
@@ -26,15 +29,20 @@ class RealGame:
         pygame.font.init()
         self.myfont = pygame.font.SysFont('Arial', 30)
         self.titletext = self.myfont.render("something", False, (0, 0, 0))
+        
+        self.minigame = 0
  
     def events(self, event):
         if event.type == pygame.QUIT:
             self._running = False
             
     def loop(self):
-        self.titletext = self.myfont.render("something", False, (0, 0, 0))
-        self._display_sfc.fill([128, 128, 255])
-        self._display_sfc.blit(self.titletext,(self.width/2-250,self.height/2))
+        if not self.minigame:
+            self.titletext = self.myfont.render("something", False, (0, 0, 0))
+            self._display_sfc.fill([128, 128, 255])
+            self._display_sfc.blit(self.titletext,(self.width/2-250,self.height/2))
+        else:
+            self.minigame = PenaltyKick.startgame()
         
     def render(self):
         pygame.display.flip()
