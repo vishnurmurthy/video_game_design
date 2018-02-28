@@ -18,8 +18,7 @@ class RealGame:
         else:
             self._display_sfc = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
         self._running = True
-        
-        os.chdir('..')
+
         pygame.mixer.pre_init(44100, 16, 2, 4096)
         pygame.mixer.init()
         
