@@ -9,7 +9,7 @@ class RealGame:
     def __init__(self):
         self._running = True
         self._display_sfc = None
-        self.size = self.width, self.height = 640, 480
+        self.size = self.width, self.height = 1280, 720
  
     def init(self): 
         pygame.init()
@@ -37,11 +37,16 @@ class RealGame:
             
     def loop(self):
         if not self.minigame:
+            pygame.mixer.music.stop()
             self.titletext = self.myfont.render("something", False, (0, 0, 0))
             self._display_sfc.fill([128, 128, 255])
             self._display_sfc.blit(self.titletext,(self.width/2-250,self.height/2))
-        else:
-            self.minigame = PenaltyKick.startgame()
+        if self.minigame == 1:
+            mini1 = PenaltyKick.Game()
+            mini1.setup()
+            self.minigame = mini1.main()
+        if pygame.key.get_pressed()[K_SPACE]:
+            self.minigame = 1
         
     def render(self):
         pygame.display.flip()
@@ -53,7 +58,7 @@ class RealGame:
         if self.init() == False:
             self._running = False
         
-        while( self._running ):
+        while self._running:
             for event in pygame.event.get():
                 self.events(event)
             self.loop()
