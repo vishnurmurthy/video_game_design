@@ -3,7 +3,8 @@ from random import randint
 from pygame.locals import *
 
 sys.path.insert(0, 'Penalty-Kick/')
-import PenaltyKick
+sys.path.insert(0, 'Archery/')
+import PenaltyKick, Archery
 
 class RealGame:
     def __init__(self):
@@ -47,6 +48,13 @@ class RealGame:
             self.minigame = mini1.main()
         if pygame.key.get_pressed()[K_SPACE]:
             self.minigame = 1
+        if pygame.key.get_pressed()[K_RETURN]:
+            self.minigame = 2
+        if self.minigame == 2:
+            mini2 = Archery.ArcheryGame()
+            mini2.setup1()
+            mini2.introArchery()
+            self.minigame = mini2.archeryGame(1)
         
     def render(self):
         pygame.display.flip()
