@@ -4,7 +4,8 @@ from pygame.locals import *
 
 sys.path.insert(0, 'Penalty-Kick/')
 sys.path.insert(0, 'Archery/')
-import PenaltyKick, Archery
+sys.path.insert(0, 'Race_Game/')
+import PenaltyKick, Archery, car_racing
 
 class RealGame:
     def __init__(self):
@@ -50,11 +51,17 @@ class RealGame:
             self.minigame = 1
         if pygame.key.get_pressed()[K_RETURN]:
             self.minigame = 2
+        if pygame.key.get_pressed()[K_BACKSPACE]:
+            self.minigame = 3
         if self.minigame == 2:
             mini2 = Archery.ArcheryGame()
             mini2.setup1()
             mini2.introArchery()
             self.minigame = mini2.archeryGame(1)
+        if self.minigame == 3:
+            mini3 = car_racing.Racing()
+            mini3.load()
+            self.minigame = mini3.main()
         
     def render(self):
         pygame.display.flip()
