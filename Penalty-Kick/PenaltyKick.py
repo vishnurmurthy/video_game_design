@@ -168,9 +168,9 @@ class Game:
                 #pygame.display.update()
             #timer
             self.seconds = (pygame.time.get_ticks()-self.start_ticks)/1000
-            if self.seconds > 25 or self.goalBlocked == 5 :
+            if self.seconds > 25:
                 self.gameExit = True
-                return False
+                return self.goalBlocked
             self.screenSetup()
             #set
             self.blocked = 'Goals Saved: ' + str(self.goalBlocked)
@@ -231,12 +231,24 @@ class Game:
                 self.ball_x_change = 0
                 self.ball_slope = random.randrange(300, 850)
                 self.ballSaved = False
-            self.ball_x += self.ball_x_change
-            self.ball_y += self.ball_y_change
+            self.ball_x += int(self.ball_x_change*1.75)
+            self.ball_y += int(self.ball_y_change*1.75)
             self.ball(self.ball_x, self.ball_y)
             pygame.display.update()
             self.clock.tick(60)
             
-    def main(self):
+    def main(self, difficulty):
         self.directions()
-        self.startGame()
+        score = self.startGame()
+        if difficulty == 1:#easy
+            if score < 5:
+                return False
+            return True
+        if difficulty == 1.5:#medium
+            if score < 6:
+                return False
+            return True
+        else:
+            if score < 8:#False
+                return False
+            return True
